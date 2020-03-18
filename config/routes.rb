@@ -13,8 +13,16 @@ Rails.application.routes.draw do
 
   delete '/books/:book_id/favorites', to: 'favorites#destroy' ,as: :favorite_delete
 
-  resources :users, only: [:index, :show, :edit, :update]
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :users, only: [:index, :show, :edit, :update] do
+    resource :relationships, only: [:create, :destroy] do
+      member do
+        get :follows
+        get :followers
+      end
+    end
+  end
+
+
   resources :books, only: [:index, :show, :create, :edit, :update, :destroy] do
     resources :favorites, only: [:create, :destory]
     resource :book_comments, only: [:create, :destroy]
