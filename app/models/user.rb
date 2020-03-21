@@ -23,9 +23,6 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :following
 #======================================================================================================================
 
-
-  has_many :passive_relationships, class_name: "Relationship", foreign_key: :follower_id
-
   attachment :profile_image
 
   validates :name, presence: true
